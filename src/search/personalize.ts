@@ -7,7 +7,7 @@
  *   3. More Results           — the rest of the keyword matches
  * A new retailer has no order history, so shelf 1 is simply empty for them.
  */
-import { Product, orderedProductIds, historyById } from '../data/catalog';
+import { Product, orderedProductIds } from '../data/catalog';
 
 export type Persona = 'existing' | 'new';
 
@@ -39,10 +39,4 @@ export function personalize(list: Product[], persona: Persona): RankedProducts {
   const more = rest.filter((p) => !bestIds.has(p.id));
 
   return { previouslyBought, bestsellers, more, list: [...previouslyBought, ...bestsellers, ...more] };
-}
-
-export function usualSubtitle(productId: string): string | undefined {
-  const h = historyById(productId);
-  if (!h) return undefined;
-  return `Ordered ${h.timesOrdered}× · last ${h.lastOrdered} · ${h.lastQty}`;
 }

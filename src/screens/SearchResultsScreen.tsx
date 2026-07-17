@@ -13,7 +13,7 @@ import { NoResults, OtherTabHint, ScopedNoResults } from '../components/NoResult
 import { BrandTile } from '../components/EntityTiles';
 import { useSearch } from '../context/SearchContext';
 import { federatedSearch, productsInScope, didYouMean, hasAnyMatch } from '../search/engine';
-import { personalize, usualSubtitle } from '../search/personalize';
+import { personalize } from '../search/personalize';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'SearchResults'>;
 
@@ -190,9 +190,7 @@ export function SearchResultsScreen({ navigation, route }: Props) {
               {previouslyBought.length > 0 && (
                 <>
                   <ProductsHeader icon="repeat" text="Previously Bought" tint={colors.primary} />
-                  {previouslyBought.map((p) => (
-                    <DistributorProductCard key={p.id} product={p} yourUsual usualSub={usualSubtitle(p.id)} />
-                  ))}
+                  {previouslyBought.map((p) => <DistributorProductCard key={p.id} product={p} />)}
                 </>
               )}
 

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 import { colors, radii, font } from '../theme/theme';
 import { Product } from '../data/catalog';
 import { ProductImage, CaseLine, VariantPills, PriceBand, ActionsRow, s } from './ProductCardParts';
@@ -10,28 +9,18 @@ import { ProductImage, CaseLine, VariantPills, PriceBand, ActionsRow, s } from '
  * Brand chip → name → case → 120px image → variants → price band
  * → Discounts/Add → "From <seller>" pill → "Delivery by" MOV boxes.
  */
-export function DistributorProductCard({
-  product, yourUsual, usualSub,
-}: { product: Product; yourUsual?: boolean; usualSub?: string }) {
+export function DistributorProductCard({ product }: { product: Product }) {
   const [variant, setVariant] = useState(0);
 
   return (
-    <View style={[s.card, yourUsual && d.cardUsual]}>
+    <View style={s.card}>
       <View style={s.header}>
         <View style={s.headerLeft}>
-          <View style={d.chipRow}>
-            <View style={s.brandChip}>
-              <Text style={s.brandChipTxt}>{product.brand}</Text>
-            </View>
-            {yourUsual && (
-              <View style={d.usualBadge}>
-                <Ionicons name="repeat" size={12} color={colors.white} />
-                <Text style={d.usualBadgeTxt}>Previously Bought</Text>
-              </View>
-            )}
+          <View style={s.brandChip}>
+            <Text style={s.brandChipTxt}>{product.brand}</Text>
           </View>
           <Text style={s.name} numberOfLines={2}>{product.name}</Text>
-          {yourUsual && usualSub ? <Text style={d.usualSub}>{usualSub}</Text> : <CaseLine product={product} />}
+          <CaseLine product={product} />
         </View>
         <ProductImage product={product} />
       </View>
@@ -69,17 +58,6 @@ export function DistributorProductCard({
 }
 
 const d = StyleSheet.create({
-  cardUsual: { borderWidth: 1.5, borderColor: colors.primary },
-  chipRow: { flexDirection: 'row', alignItems: 'center', gap: 6, flexWrap: 'wrap' },
-  usualBadge: {
-    flexDirection: 'row', alignItems: 'center', gap: 4,
-    backgroundColor: colors.primary,
-    borderRadius: radii.sm,
-    paddingHorizontal: 8, paddingVertical: 4,
-  },
-  usualBadgeTxt: { fontFamily: font.bold, fontSize: 10.5, color: colors.white },
-  usualSub: { fontFamily: font.medium, fontSize: 11.5, color: colors.primary, paddingHorizontal: 4 },
-
   fromPill: {
     flexDirection: 'row', alignItems: 'center', gap: 4,
     backgroundColor: colors.lightBlue,
