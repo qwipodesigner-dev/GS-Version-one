@@ -1,9 +1,18 @@
 import React from 'react';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { View, Text, Pressable, StyleSheet, useWindowDimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors, radii, font } from '../theme/theme';
 import { EmptyBox } from './EmptyBox';
 import { trendingTerms } from '../data/catalog';
+
+/** The illustration ships at 302×302 (1×); shrink it only if the screen is narrower. */
+const ART_SIZE = 302;
+const ART_MARGIN = 56;
+
+function Art() {
+  const { width } = useWindowDimensions();
+  return <EmptyBox size={Math.min(ART_SIZE, width - ART_MARGIN)} />;
+}
 
 /**
  * Nothing matched anywhere in the catalogue (bad keyword / typo).
@@ -20,8 +29,8 @@ export function NoResults({
   onSearch: (q: string) => void;
 }) {
   return (
-    <View style={s.wrap}>
-      <EmptyBox size={130} />
+    <View style={[s.wrap, s.centered]}>
+      <Art />
       <Text style={s.title}>No results for “{query}”</Text>
 
       {suggestion ? (
@@ -61,8 +70,8 @@ export function OtherTabHint({
   onSwitch: () => void;
 }) {
   return (
-    <View style={s.wrap}>
-      <EmptyBox size={130} />
+    <View style={[s.wrap, s.centered]}>
+      <Art />
       <Text style={s.title}>
         No products available with{'\n'}{toWholesalers ? 'distributors' : 'wholesalers'}
       </Text>
@@ -91,8 +100,8 @@ export function ScopedNoResults({
   onSearchAll: () => void;
 }) {
   return (
-    <View style={s.wrap}>
-      <EmptyBox size={130} />
+    <View style={[s.wrap, s.centered]}>
+      <Art />
       <Text style={s.title}>No results for “{query}”{'\n'}in {scopeLabel}</Text>
       <Text style={s.sub}>It may still be available elsewhere in the catalogue.</Text>
       <Pressable style={s.btn} onPress={onSearchAll}>
@@ -105,6 +114,8 @@ export function ScopedNoResults({
 
 const s = StyleSheet.create({
   wrap: { alignItems: 'center', paddingTop: 36, paddingHorizontal: 28, paddingBottom: 40 },
+  /** Empty states sit in the middle of the screen, illustration included. */
+  centered: { flex: 1, justifyContent: 'center', paddingTop: 24, paddingBottom: 24 },
   title: { fontFamily: font.semibold, fontSize: 16, color: colors.textDark, textAlign: 'center', marginTop: 16 },
   sub: { fontFamily: font.regular, fontSize: 14, color: colors.textMuted, textAlign: 'center', marginTop: 8 },
 

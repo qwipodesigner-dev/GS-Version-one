@@ -757,7 +757,7 @@ export const distributors: Distributor[] = [
 // ─────────────────────────────────────────────────────────────
 // Personalization + zero-state
 // ─────────────────────────────────────────────────────────────
-/** Existing-retailer order history → drives "Your Usual" (distributor listings). */
+/** Existing-retailer order history → drives "Previously Bought" (distributor listings). */
 export const orderHistory: OrderHistoryEntry[] = [
   { productId: 'd_oil_freedom1', lastOrdered: '2 days ago', timesOrdered: 12, lastQty: '1 ltr' },
   { productId: 'd_oil_freedom4', lastOrdered: '3 weeks ago', timesOrdered: 3, lastQty: '5 ltr' },

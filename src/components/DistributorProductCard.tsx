@@ -26,7 +26,7 @@ export function DistributorProductCard({
             {yourUsual && (
               <View style={d.usualBadge}>
                 <Ionicons name="repeat" size={12} color={colors.white} />
-                <Text style={d.usualBadgeTxt}>Your Usual</Text>
+                <Text style={d.usualBadgeTxt}>Previously Bought</Text>
               </View>
             )}
           </View>
